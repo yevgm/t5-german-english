@@ -21,14 +21,14 @@ Our method includes the following steps:
     <ul>
     <li>1.1 The input training set is cleaned manually by removing incorrect translations. For example, German: -0,1, English: 0.1. </li>
     <li>1.2 Each dataset is parsed. Then, the training set is split into training (0.8) and validation (0.2), while the given validation set is used as a final test set.</li>
-    <li>1.3 At the batching stage, we randomly sample batch_size examples and tokenize them using the SentencePiece tokenizer used by T5, with longest padding and a maximum context of 220. The maximum output length is 300 tokens.</li>
+    <li>1.3 At the batching stage, we randomly sample batch_size examples and tokenize them using the SentencePiece tokenizer used by T5, with longest padding and a maximum context of 220.</li>
     </ul>
   </li>
-  <li>2 Training step: The batches are passed to a pre-trained T5-base model, which is fine-tuned in a supervised way using the cross-entropy loss.</li>
-  <li>3 Evaluation step: 
+  <li>2. Training step: The batches are passed to a pre-trained T5-base model, which is fine-tuned in a supervised way using the cross-entropy loss and AdamW optimizer.</li>
+  <li>3. Evaluation step: 
   	<ul>
-  		<li> 3.1 Prediction is auto-regressive and based on beam search...</li>
-  		<li> 3.2 The final translations are evaluated with sacreBLEU metric.</li>
+  		<li> 3.1 Prediction is auto-regressive and based on beam search. The maximum output length is 300 tokens. </li>
+  		<li> 3.2 The final translations are evaluated with the sacreBLEU metric.</li>
   	</ul>
   </li>
 </ul>
@@ -106,8 +106,7 @@ Example results from the validation corpus:
 	> And further cuts, such as those proposed by the EU – 20% below 1990 levels within 12 years – would lower global temperatures by just a sixth of a degree Celsius (a thirty-degree Fahrenheit) by 2100, at a cost of $10 trillion.For every dollar spent, we would have reached only a four-cent increase.
 
 
-2.
-
+2.	
 	German example:
 	> Einige iranische Reformer und Exilanten haben die Wahl Ahmadinedschads mit dem Argument schön geredet, dass seine Regierung wahrscheinlich das wahre Gesicht der Regimes zeigt und sämtliche westliche Hoffnungen auf einen Kompromiss zerstört. Jedoch kann sich darin auch der Erfolg des Regimes widerspiegeln, die Unzufriedenheit über ein Vierteljahrhundert radikaler islamischer Herrschaft zu neutralisieren.
 	Unabhängig vom Ausgang bedeutet Ahmadinedschads Sieg, dass alles, was mit dem Iran zu tun hat, voraussichtlich noch schwieriger wird.
